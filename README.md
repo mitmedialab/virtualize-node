@@ -8,4 +8,6 @@ It is recommended to add this project as [git submodule](https://git-scm.com/boo
 
 # Why install node locally?
 
+### But won't this 'waste' space?
+
 # Why install this package as a git submodule?

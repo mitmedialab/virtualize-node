@@ -1,14 +1,16 @@
 ### (Don't edit below, unless you are a maintener of this package)
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 # Specify where node should be installed (default is 'node' folder -- probably keep it that way unless you have a good reason)
-LOCAL_NODE_INSTALL_DIRECTORY=`pwd`/node
+LOCAL_NODE_INSTALL_DIRECTORY="$SCRIPT_DIR/node"
 
 # Retrieve node version to be installed/activated
-VERSION_FILE="./version.bash";
+VERSION_FILE="$SCRIPT_DIR/version.bash";
 source $VERSION_FILE
 
 # 1. Make sure desired version is installed (install it, if not)
-./install.sh $LOCAL_NODE_INSTALL_DIRECTORY $VERSION
+$SCRIPT_DIR/install.sh $LOCAL_NODE_INSTALL_DIRECTORY $VERSION
 
 # 2. Add local node binaries to system PATH variable 
 export PATH="$LOCAL_NODE_INSTALL_DIRECTORY/bin":$PATH

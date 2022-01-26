@@ -20,5 +20,5 @@ ACTIVE_NODE_VERSION=`node --version`
 PREFIX="local node:"
 # Avoid displaying multiple 'local node readouts'
 # (FYI: The below uses bash's 'sed' [stream editor] functionality along with regex to subsitute & add information to the PS1, 'custom prompt' environment variable)
-DISPLAY=$(echo $PS1 | sed 's/\(($PREFIX[^)]*\))//' | sed 's/^/($PREFIX $ACTIVE_NODE_VERSION)/')
+DISPLAY=$(echo $PS1 | sed 's/\(($PREFIX[^)]*\))//' | sed 's/^/($PREFIX $ACTIVE_NODE_VERSION) /')
 PS1="$DISPLAY "

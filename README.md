@@ -75,6 +75,12 @@ You can then advise your fellow developers to always `source ./activate.bash` as
 
 # Why install node locally?
 
+... work in progress ...
+
 ### But won't this 'waste' space?
 
+... work in progress ...
+
 # Why install this package as a git submodule?
+
+... work in progress ...

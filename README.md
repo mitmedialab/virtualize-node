@@ -1,12 +1,12 @@
 # local-node-install
 Utility package to assist in installing and using node local to a specific project, kind of like a 'virtual environment' for node.
 
-# How to get started
+# Getting Started
 
-### Add local-node-install to your project
+## Add local-node-install to your project
 This package is intended to be added to an existing project that will/does utilize [node](https://nodejs.org/en/) (likely as one of the first things you do when setting up the project).
 
-#### Adding as a git submodule to your project's repo (recommended)
+### Adding as a git submodule to your project's repo (recommended)
 
 It is likely best to add local-node-install as [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). 
 
@@ -29,13 +29,13 @@ git commit -m "Added local-node-install package as a git submodule to my project
 git push
 ```
 
-#### Adding this as a directory in your project's folder structure (no git)
+### Adding this as a directory in your project's folder structure (no git)
 
 Click [here](https://github.com/mitmedialab/local-node-install/archive/refs/heads/main.zip) to download a zip of this project. 
 
 Drag it into your project and unzip it. 
 
-### Using your local-node-install
+## Using your local-node-install
 
 Once you have a copy of local-node-install in your project, run the following command to utilize it:
 
@@ -43,7 +43,7 @@ Once you have a copy of local-node-install in your project, run the following co
 source <path to local-node-install>/local-node-install/activate.bash
 ```
 
-### Changing the version of node installed by local-node-install
+## Changing the version of node installed by local-node-install
 
 Update the value of the `VERSION` variable inside of of the [version.bash file](version.bash).
 
@@ -53,7 +53,7 @@ source activate.bash
 ```
 ...which will handle (1) uninstalling the previous vode version, and (2) installing the new desired version.
 
-### RECOMMENDED: Create a 'activate.bash' at your project's root
+### Create a 'activate.bash' at your project's root (recommended)
 
 If you get down with the motivation behind this package, you might adopt other 'local' installs to help ensure a project can be completely self-contained (e.g. virtual python environments; heck, maybe even a docker image -- the latter might also obsolete this package, though...).
 

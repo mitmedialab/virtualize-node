@@ -22,7 +22,7 @@ if [[ ! -d $LOCAL_NODE_INSTALL_DIRECTORY || "$NODE_VERSION" != "$CURRENTLY_INSTA
 then
   # 1. Delete previous contents of node install directory (if they exist) and then recreate directory
   # NOTE: This is not the most efficient, but this shouldn't happen often...
-  rm -rf $LOCAL_NODE_INSTALL_DIRECTORY 
+  rm -vrf $LOCAL_NODE_INSTALL_DIRECTORY >/dev/null # send standard output to the null device
   mkdir $LOCAL_NODE_INSTALL_DIRECTORY
 
   # 2. Check if 'n' Node Version Management Library https://github.com/tj/n has been installed... 
@@ -43,6 +43,6 @@ then
   # 5. Cleanup: Remove 'n' library and it's executable to avoid taking up unnecessary space
   # NOTE: Again, this isn't the most efficient thing to do...
   # ...but it won't happen often and seems better to optimize for space
-  rm -rf $N_INSTALL_DIRECTORY
-  rm -rf $N_EXECUTABLE
+  rm -vrf $N_INSTALL_DIRECTORY >/dev/null # send standard output to the null device
+  rm -vrf $N_EXECUTABLE >/dev/null # send standard output to the null device
 fi

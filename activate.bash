@@ -1,13 +1,18 @@
 ### (Don't edit below, unless you are a maintener of this package)
-
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # Specify where node should be installed (default is 'node' folder -- probably keep it that way unless you have a good reason)
 LOCAL_NODE_INSTALL_DIRECTORY="$SCRIPT_DIR/node"
 
-# Retrieve node version to be installed/activated
-VERSION_FILE="$SCRIPT_DIR/version.bash";
-source $VERSION_FILE
+# Retrieve node version to be installed/activated (either from command line arguments, or version file)
+if [ -z "$1" ]
+then
+  # no command line argument, retrieve version from version file
+  VERSION_FILE="$SCRIPT_DIR/version.bash";
+  source $VERSION_FILE
+else
+  VERSION="$1"
+fi
 
 # 1. Make sure desired version is installed (install it, if not)
 $SCRIPT_DIR/install.sh $LOCAL_NODE_INSTALL_DIRECTORY $VERSION

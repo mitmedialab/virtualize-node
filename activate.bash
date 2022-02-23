@@ -8,17 +8,17 @@ if [ "${BASH_SOURCE-}" = "$0" ]; then
     exit 33
 fi
 
-if [[ ! -z $VIRTUALIZE_ROOT ]]; then
-    echo "virtualizer is active, not activating"
+if [[ $VIRTUALIZE_ROOT && ! $VIRTUALIZE_ACTIVATING ]]; then
+    echo "virtualizer is active, not activating" $VIRTUALIZE_SOURCED_NAME
     unset VIRTUALIZE_SOURCED_NAME
     return
 fi
 
-VIRTUALIZE_NODE_DIR=$( cd -- "$( dirname -- "${SOURCED_NAME}" )" &> /dev/null && pwd )
+VIRTUALIZE_NODE_DIR=$( cd -- "$( dirname -- "${VIRTUALIZE_SOURCED_NAME}" )" &> /dev/null && pwd )
 
 # Specify where node should be installed (default is 'node' folder -- probably keep it that way unless you have a good reason)
 VIRTUALIZE_NODE_INSTALL_DIR="$VIRTUALIZE_NODE_DIR/node"
-VIRTUALIZE_ROOT=$( dirname -- "${VIRTUALIZE_NODE_DIR}" )
+#VIRTUALIZE_ROOT=$( dirname -- "${VIRTUALIZE_NODE_DIR}" )
 
 # Retrieve node version to be installed/activated
 source "$VIRTUALIZE_NODE_DIR/version.bash"
@@ -28,32 +28,46 @@ $VIRTUALIZE_NODE_DIR/install.sh $VIRTUALIZE_NODE_INSTALL_DIR $VERSION
 
 # 2. Add local node binaries to system PATH variable
 VIRTUALIZE_NODE_ORIG_PATH="$PATH"
-export PATH="$LOCAL_NODE_INSTALL_DIR/bin":"$VIRTUALIZE_ROOT/node_modules/.bin":$PATH
+export PATH="$VIRTUALIZE_NODE_INSTALL_DIR/bin":"$VIRTUALIZE_ROOT/node_modules/.bin":$PATH
 
-unset VIRTUALIZED_ROOT
+#unset VIRTUALIZE_ROOT
 
-unactivate_node() {
+function unactivate_node() {
     PATH="$VIRTUALIZE_NODE_ORIG_PATH"
     unset VIRTUALIZE_NODE_ORIG_PATH
     #unset N_PREFIX
     unset VIRTUALIZE_SOURCED_NAME
+    unset VIRTUALIZE_NODE_INSTALL_DIR
     unset VIRTUALIZE_NODE_DIR
 }
 
 # stop here if called on behalf of virtualize
-if [[ ! -z $VIRTUALIZED_ACTIVATING ]]; then
+if [[ $VIRTUALIZE_ACTIVATING ]]; then
     # let virtualized deal with customizing the prompt
     return
 fi
 
+###
+### standalone mode only from here on
+###
+
 function unactivate() {
-    unactivate_node()
+    unactivate_node
+    unset -f unactivate_node
+    PS1="$VIRTUALIZE_NODE_ORIG_PS1"
+    unset VIRTUALIZE_NODE_ORIG_PS1
+    unset VIRTUALIZE_NODE_ACTIVE_VERSION
+    unset VIRTUALIZE_NODE_PREFIX
+    unset VIRTUALIZE_NODE_DISPLAY
+    unset -f unactivate
+    echo "unactivated $virtualize_root"
 }
 
 # 3. Display 'activated' node version in bash prompt
-ACTIVE_NODE_VERSION=`node --version`
-PREFIX="local node:"
+VIRTUALIZE_NODE_ORIG_PS1="$PS1"
+VIRTUALIZE_NODE_ACTIVE_VERSION=`node --version`
+VIRTUALIZE_NODE_PREFIX="local node:"
 # Avoid displaying multiple 'local node readouts'
 # (FYI: The below uses bash's 'sed' [stream editor] functionality along with regex to subsitute & add information to the PS1, 'custom prompt' environment variable)
-DISPLAY=$(echo $PS1 | sed 's/\(($PREFIX[^)]*\))//' | sed 's/^/($PREFIX $ACTIVE_NODE_VERSION)/')
-PS1="$DISPLAY "
+VIRTUALIZE_NODE_DISPLAY=$(echo $PS1 | sed 's/\(($VIRTUALIZE_NODE_PREFIX[^)]*\))//' | sed 's/^/($VIRTUALIZE_NODE_PREFIX $VIRTUALIZE_NODE_ACTIVE_VERSION)/')
+PS1="$VIRTUALIZE_NODE_DISPLAY "

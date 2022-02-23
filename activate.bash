@@ -8,6 +8,10 @@ if [ "${BASH_SOURCE-}" = "$0" ]; then
     exit 33
 fi
 
+if [[ ! -z $VIRTUALIZE_ROOT ]]; then
+    echo "virtualizer is active, not activating"
+fi
+
 SCRIPT_DIR=$( cd -- "$( dirname -- "${SOURCED_NAME}" )" &> /dev/null && pwd )
 
 # Specify where node should be installed (default is 'node' folder -- probably keep it that way unless you have a good reason)
@@ -23,6 +27,11 @@ $SCRIPT_DIR/install.sh $LOCAL_NODE_INSTALL_DIRECTORY $VERSION
 
 # 2. Add local node binaries to system PATH variable
 export PATH="$LOCAL_NODE_INSTALL_DIRECTORY/bin":"$LOCAL_PROJECT_DIRECTORY/node_modules/.bin":$PATH
+
+if [[ ! -z $VIRTUALIZED_ACTIVATING ]]; then
+    # let virtualized deal with customizing the prompt
+    return
+fi
 
 # 3. Display 'activated' node version in bash prompt
 ACTIVE_NODE_VERSION=`node --version`

@@ -1,6 +1,14 @@
 ### (Don't edit below, unless you are a maintener of this package)
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+#https://unix.stackexchange.com/a/153061
+SOURCED_NAME="$_"
+
+if [ "${BASH_SOURCE-}" = "$0" ]; then
+    echo "You must source this script: \$ source $0" >&2
+    exit 33
+fi
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${SOURCED_NAME}" )" &> /dev/null && pwd )
 
 # Specify where node should be installed (default is 'node' folder -- probably keep it that way unless you have a good reason)
 LOCAL_NODE_INSTALL_DIRECTORY="$SCRIPT_DIR/node"

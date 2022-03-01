@@ -15,29 +15,16 @@ if [[ $VIRTUALIZE_ROOT && ! $VIRTUALIZE_ACTIVATING ]]; then
 fi
 
 VIRTUALIZE_NODE_DIR=$( cd -- "$( dirname -- "${VIRTUALIZE_SOURCED_NAME}" )" &> /dev/null && pwd )
+export N_PREFIX=$VIRTUALIZE_NODE_DIR
 
-# Specify where node should be installed (default is 'node' folder -- probably keep it that way unless you have a good reason)
-VIRTUALIZE_NODE_INSTALL_DIR="$VIRTUALIZE_NODE_DIR/node"
-#VIRTUALIZE_ROOT=$( dirname -- "${VIRTUALIZE_NODE_DIR}" )
-
-# Retrieve node version to be installed/activated
-source "$VIRTUALIZE_NODE_DIR/version.bash"
-
-# 1. Make sure desired version is installed (install it, if not)
-$VIRTUALIZE_NODE_DIR/install.sh $VIRTUALIZE_NODE_INSTALL_DIR $VERSION
-
-# 2. Add local node binaries to system PATH variable
 VIRTUALIZE_NODE_ORIG_PATH="$PATH"
-export PATH="$VIRTUALIZE_NODE_INSTALL_DIR/bin":"$VIRTUALIZE_ROOT/node_modules/.bin":$PATH
-
-#unset VIRTUALIZE_ROOT
+export PATH="$VIRTUALIZE_NODE_DIR/bin:$VIRTUALIZE_ROOT/node_modules/.bin:$PATH"
 
 function unactivate_node() {
     PATH="$VIRTUALIZE_NODE_ORIG_PATH"
     unset VIRTUALIZE_NODE_ORIG_PATH
-    #unset N_PREFIX
+    unset N_PREFIX
     unset VIRTUALIZE_SOURCED_NAME
-    unset VIRTUALIZE_NODE_INSTALL_DIR
     unset VIRTUALIZE_NODE_DIR
 }
 
@@ -63,11 +50,14 @@ function unactivate() {
     echo "unactivated $virtualize_root"
 }
 
-# 3. Display 'activated' node version in bash prompt
 VIRTUALIZE_NODE_ORIG_PS1="$PS1"
-VIRTUALIZE_NODE_ACTIVE_VERSION=`node --version`
-VIRTUALIZE_NODE_PREFIX="local node:"
-# Avoid displaying multiple 'local node readouts'
-# (FYI: The below uses bash's 'sed' [stream editor] functionality along with regex to subsitute & add information to the PS1, 'custom prompt' environment variable)
-VIRTUALIZE_NODE_DISPLAY=$(echo $PS1 | sed 's/\(($VIRTUALIZE_NODE_PREFIX[^)]*\))//' | sed 's/^/($VIRTUALIZE_NODE_PREFIX $VIRTUALIZE_NODE_ACTIVE_VERSION)/')
-PS1="$VIRTUALIZE_NODE_DISPLAY "
+VIRTUALIZE_NODE_ACTIVE_VERSION=`$VIRTUALIZE_NODE_DIR/bin/node --version`
+VIRTUALIZE_NODE_DISPLAY="`echo $VIRTUALIZE_NODE_DIR | sed \"s%^$HOME/%%" | sed 's/\//·/g'` $VIRTUALIZE_NODE_ACTIVE_VERSION"
+if [[ $ZSH_VERSION ]]; then
+   PS1="[$VIRTUALIZE_NODE_DISPLAY]$PS1"
+else  # for bash (and others?)
+   PS1="[$VIRTUALIZE_NODE_DISPLAY]\n$PS1"
+fi
+
+echo "node activated for $VIRTUALIZE_NODE_DIR"
+echo "type 'unactivate' to undo"

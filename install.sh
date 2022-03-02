@@ -17,20 +17,13 @@ git clone https://github.com/tj/n $VIRTUALIZE_NODE_DIR/n
     cd $VIRTUALIZE_NODE_DIR/n
     export PREFIX=$VIRTUALIZE_NODE_DIR
     make
-    echo 1
     make install
-    echo 2
     rm -rf $VIRTUALIZE_NODE_DIR/n
-    echo 3
 )
-echo 4
 N_PREFIX=$VIRTUALIZE_NODE_DIR $VIRTUALIZE_NODE_DIR/bin/n $node_version
-echo 5
 
-echo 6
 $VIRTUALIZE_NODE_DIR/bin/npm install -g yarn
 
-echo 7
 echo "node installed"
 
 exit

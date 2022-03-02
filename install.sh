@@ -28,3 +28,11 @@ $VIRTUALIZE_NODE_DIR/bin/npm install -g yarn
 echo "node installed"
 
 exit
+
+
+## Notes:
+## maybe we should pull the node install into a subdir
+## the .gitignore file is
+## rename activate.bash -> activate?
+## rename repo to virtualize-node?
+## centralize versions

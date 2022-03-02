@@ -1,5 +1,3 @@
-### (Don't edit below, unless you are a maintener of this package)
-
 #https://unix.stackexchange.com/a/153061
 VIRTUALIZE_SOURCED_NAME="$_"
 

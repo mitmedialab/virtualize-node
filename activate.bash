@@ -22,7 +22,7 @@ export PATH="$VIRTUALIZE_NODE_DIR/bin:$VIRTUALIZE_ROOT/node_modules/.bin:$PATH"
 
 VIRTUALIZE_NODE_ORIG_MANPATH="$MANPATH"
 if [[ ! $MANPATH ]]; then
-    $MANPATH=$(manpath)
+    MANPATH=$(manpath)
 fi
 export MANPATH="$VIRTUALIZE_NODE_DIR/share/man:$MANPATH"
 

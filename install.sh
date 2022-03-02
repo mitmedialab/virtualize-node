@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ "${BASH_SOURCE-}" != "$0" ]]; then
+if [[ ! $BASH_SOURCE ]]; then
     echo "You cannot source this script. Run it as ./$0" >&2
     exit 33
 fi

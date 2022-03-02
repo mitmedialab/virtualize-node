@@ -19,7 +19,7 @@ git clone https://github.com/tj/n $VIRTUALIZE_NODE_DIR/n
     make
     make install
 )
-#rm -rf $VIRTUALIZE_NODE_DIR/n
+rm -rf $VIRTUALIZE_NODE_DIR/n
 N_PREFIX=$VIRTUALIZE_NODE_DIR $VIRTUALIZE_NODE_DIR/bin/n $node_version
 
 $VIRTUALIZE_NODE_DIR/bin/npm install -g yarn

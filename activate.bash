@@ -13,7 +13,7 @@ if [[ $VIRTUALIZE_ROOT && ! $VIRTUALIZE_ACTIVATING ]]; then
 fi
 
 VIRTUALIZE_NODE_DIR=$( cd -- "$( dirname -- "${VIRTUALIZE_SOURCED_NAME}" )" &> /dev/null && pwd )
-export N_PREFIX=$VIRTUALIZE_NODE_DIR
+export N_PREFIX=$VIRTUALIZE_NODE_DIR/node
 
 VIRTUALIZE_NODE_ORIG_PATH="$PATH"
 export PATH="$VIRTUALIZE_ROOT/node_modules/.bin:$VIRTUALIZE_NODE_DIR/node/bin:$PATH"

@@ -20,8 +20,8 @@ git clone https://github.com/tj/n $VIRTUALIZE_NODE_DIR/n
     make install
     rm -rf $VIRTUALIZE_NODE_DIR/n
 )
-N_PREFIX=$VIRTUALIZE_NODE_DIR $VIRTUALIZE_NODE_DIR/node/bin/n $node_version
 
+N_PREFIX=$VIRTUALIZE_NODE_DIR/node $VIRTUALIZE_NODE_DIR/node/bin/n $node_version
 export PATH="$VIRTUALIZE_NODE_DIR/node/bin:$PATH"  # apparently npm can't find it's own node install?
 $VIRTUALIZE_NODE_DIR/node/bin/npm install -g yarn
 

@@ -10,7 +10,11 @@ VIRTUALIZE_NODE_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE}" )" &> /dev/null && 
 #node_version=14.16
 # Retrieve node version to be installed/activated
 source "$VIRTUALIZE_NODE_DIR/version.bash"
-node_version=$VERSION
+INSTALL_VERSION=$VERSION
+if [[ $1 ]]; then
+    INSTALL_VERSION="$1"
+fi
+
 
 git clone https://github.com/tj/n $VIRTUALIZE_NODE_DIR/n
 (
@@ -21,7 +25,7 @@ git clone https://github.com/tj/n $VIRTUALIZE_NODE_DIR/n
     rm -rf $VIRTUALIZE_NODE_DIR/n
 )
 
-N_PREFIX=$VIRTUALIZE_NODE_DIR/node $VIRTUALIZE_NODE_DIR/node/bin/n $node_version
+N_PREFIX=$VIRTUALIZE_NODE_DIR/node $VIRTUALIZE_NODE_DIR/node/bin/n $INSTALL_VERSION
 export PATH="$VIRTUALIZE_NODE_DIR/node/bin:$PATH"  # apparently npm can't find it's own node install?
 $VIRTUALIZE_NODE_DIR/node/bin/npm install -g yarn
 

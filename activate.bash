@@ -32,6 +32,7 @@ function unactivate_node() {
 	unset MANPATH
     fi
     unset VIRTUALIZE_NODE_ORIG_PATH
+    unset VIRTUALIZE_NODE_ORIG_MANPATH
     unset N_PREFIX
     unset VIRTUALIZE_SOURCED_NAME
     unset VIRTUALIZE_NODE_DIR

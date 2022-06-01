@@ -6,33 +6,39 @@ if [ "${BASH_SOURCE-}" = "$0" ]; then
     exit 33
 fi
 
+# workaround bash behavior when sourced files source other files
+if [[ $VIRTUALIZE_SUBSOURCE ]]; then
+    VIRTUALIZE_SOURCED_NAME="$VIRTUALIZE_SUBSOURCE"
+fi
+
 if [[ $VIRTUALIZE_ROOT && ! $VIRTUALIZE_ACTIVATING ]]; then
     echo "virtualizer is active, not activating" $VIRTUALIZE_SOURCED_NAME
     unset VIRTUALIZE_SOURCED_NAME
     return
 fi
 
+echo $VIRTUALIZE_SOURCED_NAME
 VIRTUALIZE_NODE_DIR=$( cd -- "$( dirname -- "${VIRTUALIZE_SOURCED_NAME}" )" &> /dev/null && pwd )
 export N_PREFIX=$VIRTUALIZE_NODE_DIR/node
 
 VIRTUALIZE_NODE_ORIG_PATH="$PATH"
 export PATH="$VIRTUALIZE_ROOT/node_modules/.bin:$VIRTUALIZE_NODE_DIR/node/bin:$PATH"
 
-VIRTUALIZE_NODE_ORIG_MANPATH="$MANPATH"
-if [[ ! $MANPATH ]]; then
-    MANPATH=$(manpath)
-fi
-export MANPATH="$VIRTUALIZE_NODE_DIR/node/share/man:$MANPATH"
+#VIRTUALIZE_NODE_ORIG_MANPATH="$MANPATH"
+#if [[ ! $MANPATH ]]; then
+#    MANPATH=$(manpath)
+#fi
+#export MANPATH="$VIRTUALIZE_NODE_DIR/node/share/man:$MANPATH"
 
 function unactivate_node() {
     PATH="$VIRTUALIZE_NODE_ORIG_PATH"
-    if [[ $VIRTUALIZE_NODE_ORIG_MANPATH ]]; then
-	MANPATH="$VIRTUALIZE_NODE_ORIG_MANPATH"
-    else
-	unset MANPATH
-    fi
+    #if [[ $VIRTUALIZE_NODE_ORIG_MANPATH ]]; then
+    #    MANPATH="$VIRTUALIZE_NODE_ORIG_MANPATH"
+    #else
+    #    unset MANPATH
+    #fi
     unset VIRTUALIZE_NODE_ORIG_PATH
-    unset VIRTUALIZE_NODE_ORIG_MANPATH
+    #unset VIRTUALIZE_NODE_ORIG_MANPATH
     unset N_PREFIX
     unset VIRTUALIZE_SOURCED_NAME
     unset VIRTUALIZE_NODE_DIR

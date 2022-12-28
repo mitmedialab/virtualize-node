@@ -1,49 +1,49 @@
-# local-node-install
+# virtualize-node
 Utility package to assist in installing and using node local to a specific project, kind of like a 'virtual environment' for node.
 
 # Getting Started
 
-## Add local-node-install to your project
+## Add virtualize-node to your project
 This package is intended to be added to an existing project that will/does utilize [node](https://nodejs.org/en/) (likely as one of the first things you do when setting up the project).
 
 ### Adding as a git submodule to your project's repo (recommended)
 
-It is likely best to add local-node-install as [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). 
+It is likely best to add virtualize-node as [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). 
 
 > **NOTE:** Using git submodules is a little controversial, so please checkout the [Why install this package as a git submodule](#why-install-this-package-as-a-git-submodule) to make sure the potential 'gotchas' don't worry you. If they do, simply download the contents of this repo and add it to your project's folder structure -- see [below](#adding-this-as-a-directory-in-your-projects-folder-structure-no-git) for help. 
 
 Using **SSH**
 ```bash
-git submodule add git@github.com:mitmedialab/local-node-install.git 
+git submodule add git@github.com:mitmedialab/virtualize-node.git 
 ```
 
 Using **HTTPS**
 ```bash
-git submodule add https://github.com/mitmedialab/local-node-install.git
+git submodule add https://github.com/mitmedialab/virtualize-node.git
 ```
 
-Commit and push the addition of local-node-install to your project
+Commit and push the addition of virtualize-node to your project
 ```bash
-git add .gitmodules local-node-install
-git commit -m "Added local-node-install package as a git submodule to my project"
+git add .gitmodules virtualize-node
+git commit -m "Added virtualize-node package as a git submodule to my project"
 git push
 ```
 
 ### Adding this as a directory in your project's folder structure (no git)
 
-Click [here](https://github.com/mitmedialab/local-node-install/archive/refs/heads/main.zip) to download a zip of this project. 
+Click [here](https://github.com/mitmedialab/virtualize-node/archive/refs/heads/main.zip) to download a zip of this project. 
 
 Drag it into your project and unzip it. 
 
-## Using your local-node-install
+## Using your virtualize-node
 
-Once you have a copy of local-node-install in your project, run the following command to utilize it:
+Once you have a copy of virtualize-node in your project, run the following command to utilize it:
 
 ```bash 
-source <path to local-node-install>/local-node-install/activate.bash
+source virtualize-node/activate.bash
 ```
 
-## Changing the version of node installed by local-node-install
+## Changing the version of node installed by virtualize-node
 
 Update the value of the `VERSION` variable inside of of the [version.bash file](version.bash).
 
@@ -68,7 +68,7 @@ For example, if you are using (1) python virutal environments and (2) this packa
 source ./python/bin/activate
 
 # activate local node version
-source ./local-node-install/activate.bash
+source ./virtualize-node/activate.bash
 ```
 
 You can then advise your fellow developers to always `source ./activate.bash` as soon as they `cd` into your project.  

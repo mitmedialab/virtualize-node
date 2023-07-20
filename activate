@@ -19,7 +19,7 @@ fi
 
 echo $VIRTUALIZE_SOURCED_NAME
 VIRTUALIZE_NODE_DIR=$( cd -- "$( dirname -- "${VIRTUALIZE_SOURCED_NAME}" )" &> /dev/null && pwd )
-export N_PREFIX=$VIRTUALIZE_NODE_DIR/node
+export N_PREFIX="$VIRTUALIZE_NODE_DIR"/node
 
 VIRTUALIZE_NODE_ORIG_PATH="$PATH"
 export PATH="$VIRTUALIZE_ROOT/node_modules/.bin:$VIRTUALIZE_NODE_DIR/node/bin:$PATH"
@@ -68,8 +68,8 @@ function unactivate() {
 }
 
 VIRTUALIZE_NODE_ORIG_PS1="$PS1"
-VIRTUALIZE_NODE_ACTIVE_VERSION=`$VIRTUALIZE_NODE_DIR/node/bin/node --version`
-VIRTUALIZE_NODE_DISPLAY="`echo $VIRTUALIZE_NODE_DIR | sed \"s%^$HOME/%%" | sed 's/\//·/g'` $VIRTUALIZE_NODE_ACTIVE_VERSION"
+VIRTUALIZE_NODE_ACTIVE_VERSION=`"$VIRTUALIZE_NODE_DIR"/node/bin/node --version`
+VIRTUALIZE_NODE_DISPLAY="`echo "$VIRTUALIZE_NODE_DIR" | sed \"s%^$HOME/%%" | sed 's/\//·/g'` $VIRTUALIZE_NODE_ACTIVE_VERSION"
 if [[ $ZSH_VERSION ]]; then
    PS1="[$VIRTUALIZE_NODE_DISPLAY]$PS1"
 else  # for bash (and others?)

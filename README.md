@@ -1,5 +1,5 @@
 # virtualize-node
-Utility package to assist in installing and using node local to a specific project, kind of like a 'virtual environment' for node.
+Utility package to assist in installing and using node local to a specific project, kind of like a python 'virtual environment', but for node.
 
 # Getting Started
 
@@ -43,35 +43,25 @@ Once you have a copy of virtualize-node in your project, run the following comma
 source virtualize-node/activate.bash
 ```
 
-## Changing the version of node installed by virtualize-node
-
-Update the value of the `VERSION` variable inside of of the [version.bash file](version.bash).
-
-Then (re)run:
-```bash
-source activate.bash
-```
-...which will handle (1) uninstalling the previous vode version, and (2) installing the new desired version.
-
-### Create a 'activate.bash' at your project's root (recommended)
+### Create a './activate' at your project's root (recommended)
 
 If you get down with the motivation behind this package, you might adopt other 'local' installs to help ensure a project can be completely self-contained (e.g. virtual python environments; heck, maybe even a docker image -- the latter might also obsolete this package, though...).
 
-If so, having a single `activate.bash` file that coordinates all of your project's setup activities could be very helpful.
+If so, having a single `activate` file that coordinates all of your project's setup activities could be very helpful.
 
 For example, if you are using (1) python virutal environments and (2) this package to have a local node install, you might have a file that looks like the following at the root of your project:
 
 ```bash
-# inside of <your project directory>/activate.bash
+# inside of <your project directory>/activate
 
 # activate python virtual environment 
 source ./python/bin/activate
 
 # activate local node version
-source ./virtualize-node/activate.bash
+source ./virtualize-node/activate
 ```
 
-You can then advise your fellow developers to always `source ./activate.bash` as soon as they `cd` into your project.  
+You can then advise your fellow developers to always `source ./activate` as soon as they `cd` into your project.  
 
 # Why install node locally?
 

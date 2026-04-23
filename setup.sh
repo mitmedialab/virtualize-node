@@ -28,7 +28,7 @@ fi
 
 N_PREFIX=$VIRTUALIZE_NODE_DIR/node $VIRTUALIZE_NODE_DIR/node/bin/n $VIRTUALIZE_NODE_VERSION
 export PATH="$VIRTUALIZE_NODE_DIR/node/bin:$PATH"  # apparently npm can't find it's own node install?
-$VIRTUALIZE_NODE_DIR/node/bin/npm install -g yarn
+$VIRTUALIZE_NODE_DIR/node/bin/npm install -g --prefix $VIRTUALIZE_NODE_DIR/node yarn
 
 echo "node installed"
 
